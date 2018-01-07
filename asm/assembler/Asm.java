@@ -43,7 +43,7 @@ public class Asm {
 		Code code;
 		try {
 			code = parser.parse(input);
-			//code.print();
+			//code.print(); //TODO: 
 		} catch (SyntaxError e) {
 			System.err.println(e);
 			System.exit(1);

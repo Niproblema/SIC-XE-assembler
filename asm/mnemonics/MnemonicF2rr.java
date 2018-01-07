@@ -3,19 +3,12 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package code;
+package mnemonics;
 
 /**
  *
  * @author jan
  */
-public class Directive extends Node {
-    	public Directive(String comment) {
-		super(null);
-	}
-
-	@Override
-	public String toString() {
-		return comment;
-	}
+public class MnemonicF2rr {
+    
 }

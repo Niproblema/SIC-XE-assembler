@@ -9,13 +9,13 @@ package code;
  *
  * @author jan
  */
-public class Directive extends Node {
-    	public Directive(String comment) {
+public class Storage extends Node {
+    	public Storage(String comment) {
 		super(null);
 	}
 
 	@Override
 	public String toString() {
 		return comment;
-	}
+	}    
 }

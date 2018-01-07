@@ -9,8 +9,8 @@ package code;
  *
  * @author jan
  */
-public class Directive extends Node {
-    	public Directive(String comment) {
+public class InstructionF2 extends Node {
+    	public InstructionF2(String comment) {
 		super(null);
 	}
 
@@ -18,4 +18,5 @@ public class Directive extends Node {
 	public String toString() {
 		return comment;
 	}
+    
 }

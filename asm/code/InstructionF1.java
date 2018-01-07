@@ -9,8 +9,8 @@ package code;
  *
  * @author jan
  */
-public class Directive extends Node {
-    	public Directive(String comment) {
+public class InstructionF1 extends Node {
+    	public InstructionF1(String comment) {
 		super(null);
 	}
 
