@@ -10,7 +10,7 @@ package code;
  * @author jan
  */
 public class Directive extends Node {
-    	public Directive(String comment) {
+    	public Directive(mnemonics.Mnemonic mD, int value) {
 		super(null);
 	}
 

@@ -1,6 +1,7 @@
 package mnemonics;
 
 //import code.Directive;
+import code.Directive;
 import code.Node;
 import parsing.Parser;
 import parsing.SyntaxError;
@@ -19,6 +20,7 @@ public class MnemonicD extends Mnemonic {
 
     @Override
     public Node parse(Parser parser) throws SyntaxError {
+        //TODO:retrun ?
         return new Directive(this, 0);
     }
 

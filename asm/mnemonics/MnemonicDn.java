@@ -24,9 +24,9 @@ public class MnemonicDn extends Mnemonic {
         if (Character.isDigit(parser.lexer.peek())) {
             return new Directive(this, parser.parseNumber(0, Code.MAX_ADDR));
         } // symbol
-        else if (Character.isLetter(parser.lexer.peek())) {
-            return new Directive(this, parser.parseSymbol());
-        } // otherwise: error
+//        else if (Character.isLetter(parser.lexer.peek())) {       //TODO: Why Letter when it's digit operand?
+//            return new Directive(this, parser.parseSymbol());
+//        } // otherwise: error
         else {
             throw new SyntaxError(String.format("Invalid character '%c", parser.lexer.peek()), parser.lexer.row, parser.lexer.col);
         }
