@@ -12,17 +12,18 @@ import java.util.Map;
  * @author jure
  */
 public class Code {
+
     private String programName;
     private LinkedList<Node> program;
-    private int locPtr;
-    private Map<String, Integer> symbols;
-    
-    public static int MAX_WORD = (int) Math.pow(2, 24); //TODO: ?value
-    public static int MAX_ADDR = (int) Math.pow(2, 24); //TODO: ?value
+    public int PCptr, locPtr, regB;
+    public int startProgramPtr = 0;
+    public HashMap<String, Integer> symbols;
+    public static int MAX_ADDR = (int) Math.pow(2, 20); //TODO: ?value
+    public static int MAX_WORD = MAX_ADDR-1; //TODO: ?value
 
     public Code() {
         program = new LinkedList<>();
-        symbols = new HashMap<>();  //TODO: ??
+        symbols = new HashMap<>();
     }
 
     public void append(Node nodeToAdd) {
@@ -36,7 +37,9 @@ public class Code {
 //        }
 
     private void begin() {
-
+        PCptr = startProgramPtr;
+        locPtr = startProgramPtr;
+        regB = -1;
     }
 
     private void end() {

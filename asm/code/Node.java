@@ -17,6 +17,31 @@ public abstract class Node {
 	public Node(Mnemonic mnemonic) {
 		this.mnemonic = mnemonic;
 	}
+        
+        public void enter(Code code){
+            code.PCptr += this.length();
+        }
+        public void resolve(Code code){
+            //resolves symbol
+        }
+        public void leave(Code code){
+            
+        }
+        
+        public void activate(Code code){
+            //if(symbol.value != null)
+            //code.symbols.put(symbol.string, symbol.value);
+        }
+                
+        public abstract int length();
+        
+        public abstract void emitCode(byte[] data, int pos);
+        
+        public abstract byte[] emitCode();     
+        
+        public void emitText(StringBuffer buff){
+            //buff.append(emitCode); //TODO: Append string < hex < byte[]
+        }
 
 	public String getLabel() {
 		return label == null ? "" : label;
