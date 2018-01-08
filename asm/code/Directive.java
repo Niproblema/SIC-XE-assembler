@@ -10,6 +10,7 @@ package code;
  * @author jan
  */
 public class Directive extends Node {
+
     public int value;
     public String symbol;
 
@@ -18,9 +19,9 @@ public class Directive extends Node {
         this.value = value;
     }
 
-    @Override
-    public String toString() {
-        return comment;
+    public Directive(mnemonics.Mnemonic mD, String symbol) {
+        super(mD);
+        this.symbol = symbol;
     }
 
     @Override
@@ -40,10 +41,9 @@ public class Directive extends Node {
 
     @Override
     public int length() {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        return 0;
     }
-    
-   
+
     /// OPCodes for Directive
     public static final int NOBASE = -1;
     public static final int LTORG = -1;

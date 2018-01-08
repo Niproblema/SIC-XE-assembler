@@ -18,10 +18,6 @@ public class InstructionF1 extends Node {
         this.value = value;
     }
 
-    @Override
-    public String toString() {
-        return comment;
-    }
 
     @Override
     public byte[] emitCode() {
@@ -40,6 +36,6 @@ public class InstructionF1 extends Node {
 
     @Override
     public int length() {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        return 1;
     }
 }

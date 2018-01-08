@@ -11,16 +11,13 @@ package code;
  */
 public class InstructionF2 extends Node {
     public int value;
+    public int reg1, reg2;
     public String symbol;
 
-    public InstructionF2(mnemonics.Mnemonic mD, int value) {
+    public InstructionF2(mnemonics.Mnemonic mD, int reg1, int reg2) {
         super(mD);
-        this.value = value;
-    }
-
-    @Override
-    public String toString() {
-        return comment;
+        this.reg1 = reg1;
+        this.reg2 = reg2;
     }
 
     @Override
@@ -40,7 +37,7 @@ public class InstructionF2 extends Node {
 
     @Override
     public int length() {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        return 2;
     }
     
 }

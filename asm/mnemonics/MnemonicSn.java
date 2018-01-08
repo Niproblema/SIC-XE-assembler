@@ -5,8 +5,10 @@
  */
 package mnemonics;
 
+import code.Code;
 import code.Directive;
 import code.Node;
+import code.Storage;
 import parsing.Parser;
 import parsing.SyntaxError;
 
@@ -22,8 +24,15 @@ public class MnemonicSn extends Mnemonic {
 
     @Override
     public Node parse(Parser parser) throws SyntaxError {
-        //TODO:retrun ?
-        return new Directive(this, 0);
-    }
-    
+        byte[] data = parser.parseData();
+        int val = 0;
+        try{
+            for(byte b : data){
+                val += b;
+            }
+        }catch(Exception e){
+            System.out.println("Error parsing MNSn, "+e.toString());
+        }      
+        return new Storage(this, val);
+    }   
 }

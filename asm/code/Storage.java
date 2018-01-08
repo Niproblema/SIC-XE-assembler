@@ -10,17 +10,19 @@ package code;
  * @author jan
  */
 public class Storage extends Node {
+
     public int value;
     public String symbol;
+    public byte[] data;
 
-    public Storage(mnemonics.Mnemonic mD, int value) {
+    public Storage(mnemonics.Mnemonic mD, byte[] data) {
         super(mD);
-        this.value = value;
+        this.data = data;
     }
 
-    @Override
-    public String toString() {
-        return comment;
+    public Storage(mnemonics.Mnemonic mD, int dataL) {
+        super(mD);
+        this.data = new byte[dataL];
     }
 
     @Override
@@ -46,5 +48,5 @@ public class Storage extends Node {
     public static final int RESB = -1;
     public static final int RESW = -1;
     public static final int BYTE = -1;
-    public static final int WORD = -1;    
+    public static final int WORD = -1;
 }

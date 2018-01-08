@@ -10,6 +10,7 @@ package code;
  * @author jan
  */
 public class InstructionF4 extends Node {
+
     public int value;
     public String symbol;
 
@@ -18,9 +19,9 @@ public class InstructionF4 extends Node {
         this.value = value;
     }
 
-    @Override
-    public String toString() {
-        return comment;
+    public InstructionF4(mnemonics.Mnemonic mD, String symbol) {
+        super(mD);
+        this.symbol = symbol;
     }
 
     @Override
@@ -40,6 +41,6 @@ public class InstructionF4 extends Node {
 
     @Override
     public int length() {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        return 4;
     }
 }

@@ -5,8 +5,10 @@
  */
 package mnemonics;
 
+import code.Code;
 import code.Directive;
 import code.Node;
+import code.Storage;
 import parsing.Parser;
 import parsing.SyntaxError;
 
@@ -22,8 +24,8 @@ public class MnemonicSd extends Mnemonic {
 
     @Override
     public Node parse(Parser parser) throws SyntaxError {
-        //TODO:retrun ?
-        return new Directive(this, 0);
+        byte[] data = parser.parseData();
+        return new Storage(this,data);
     }
     
 }

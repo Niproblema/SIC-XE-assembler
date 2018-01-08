@@ -5,7 +5,9 @@
  */
 package mnemonics;
 
+import code.Code;
 import code.Directive;
+import code.InstructionF2;
 import code.Node;
 import parsing.Parser;
 import parsing.SyntaxError;
@@ -22,8 +24,13 @@ public class MnemonicF2n extends Mnemonic {
 
     @Override
     public Node parse(Parser parser) throws SyntaxError {
-        //TODO:retrun ?
-        return new Directive(this, 0);
+        // number
+        if (Character.isDigit(parser.lexer.peek())) {
+            return new InstructionF2(this, parser.parseNumber(0, 15), -1);
+        } // otherwise: error
+        else {
+            throw new SyntaxError(String.format("Invalid character '%c", parser.lexer.peek()), parser.lexer.row, parser.lexer.col);
+        }
     }
-    
+
 }

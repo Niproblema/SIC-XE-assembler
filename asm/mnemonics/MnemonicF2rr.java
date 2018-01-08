@@ -5,7 +5,9 @@
  */
 package mnemonics;
 
+import code.Code;
 import code.Directive;
+import code.InstructionF2;
 import code.Node;
 import parsing.Parser;
 import parsing.SyntaxError;
@@ -22,8 +24,10 @@ public class MnemonicF2rr extends Mnemonic {
 
     @Override
     public Node parse(Parser parser) throws SyntaxError {
-        //TODO:retrun ?
-        return new Directive(this, 0);
+        int reg = parser.parseRegister();
+        parser.parseComma();
+        int reg2 = parser.parseRegister();
+        return new InstructionF2(this, reg, reg2);
     }
     
 }

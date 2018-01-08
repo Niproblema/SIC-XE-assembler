@@ -29,12 +29,14 @@ public class Code {
     public void append(Node nodeToAdd) {
         program.add(nodeToAdd);
     }
-//        public void defineSymbol(sym, val){
-//            
-//        }
-//        public void resolveSymbol(sym){
-//            
-//        }
+    
+    public void defineSymbol(String sym, int val) {
+        symbols.put(sym, val);
+    }
+
+    public int resolveSymbol(String sym) {
+        return symbols.get(sym);
+    }
 
     private void begin() {
         PCptr = startProgramPtr;
@@ -54,6 +56,12 @@ public class Code {
             node.leave(this);
         }
         end();
+    }
+    
+    public void print(){
+        for(Node node : program){
+            System.out.println(node.toString());
+        }
     }
 
     public byte[] emitCode() {

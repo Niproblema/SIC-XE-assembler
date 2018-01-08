@@ -5,7 +5,9 @@
  */
 package mnemonics;
 
+import code.Code;
 import code.Directive;
+import code.InstructionF3;
 import code.Node;
 import parsing.Parser;
 import parsing.SyntaxError;
@@ -19,11 +21,19 @@ public class MnemonicF3m extends Mnemonic {
     public MnemonicF3m(String mnemonic, int opcode, String hint, String desc) {
         super(mnemonic, opcode, hint, desc);
     }
-
+    
     @Override
     public Node parse(Parser parser) throws SyntaxError {
-        //TODO:retrun ?
-        return new Directive(this, 0);
+        // number
+        if (Character.isDigit(parser.lexer.peek())) {
+            return new InstructionF3(this, parser.parseNumber(0, Code.MAX_ADDR));
+        } // symbol
+        else if (Character.isLetter(parser.lexer.peek())) {     
+            return new InstructionF3(this, parser.parseSymbol());
+        } // otherwise: error
+        else {
+            throw new SyntaxError(String.format("Invalid character '%c", parser.lexer.peek()), parser.lexer.row, parser.lexer.col);
+        }
     }
     
 }
