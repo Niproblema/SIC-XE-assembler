@@ -5,10 +5,25 @@
  */
 package mnemonics;
 
+import code.Directive;
+import code.Node;
+import parsing.Parser;
+import parsing.SyntaxError;
+
 /**
  *
  * @author jan
  */
-public class MnemonicF2rn {
+public class MnemonicF2rn extends Mnemonic {
+
+    public MnemonicF2rn(String mnemonic, int opcode, String hint, String desc) {
+        super(mnemonic, opcode, hint, desc);
+    }
+
+    @Override
+    public Node parse(Parser parser) throws SyntaxError {
+        //TODO:retrun ?
+        return new Directive(this, 0);
+    }
     
 }
