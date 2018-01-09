@@ -65,5 +65,15 @@ public class Opcode {
     public static final int TIX = 0x2C;
     public static final int TIXR = 0xB8;
     public static final int WD = 0x0DC;
-
+   
+    private static final char[] hexes = new char[]{'0','1','2','3','4','5','6','7','8','9','A','B','C','D','E','F'};
+    
+    public static String byteToHex(byte[] b){
+        StringBuffer out = new StringBuffer();
+        for(byte add:b){
+            out.append( hexes[(add>>4)&0x0F] );
+            out.append( hexes[add&0x0F] );
+        }        
+        return out.toString();        
+    }
 }

@@ -24,7 +24,7 @@ public abstract class Node {
         public abstract void resolve(Code code);
         
         public void leave(Code code){
-            
+            code.locPtr = code.PCptr;
         }
         
         public void activate(Code code){
@@ -39,8 +39,8 @@ public abstract class Node {
         
         public abstract byte[] emitCode();     
         
-        public void emitText(StringBuffer buff){
-            //buff.append(emitCode); //TODO: Append string < hex < byte[]
+        public String emitText(){
+            return Opcode.byteToHex(emitCode());
         }
 
 	public String getLabel() {

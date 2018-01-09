@@ -39,14 +39,16 @@ public class Storage extends Node {
 
     @Override
     public byte[] emitCode() {
-        return (res ? new byte[this.length()] : this.data);
+        return (res ? null : this.data);
     }
 
     @Override
     public void emitCode(byte[] data, int pos) {
-        byte[] in = emitCode();
-        for (int i = 0; i < this.length(); i++) {
-            data[pos + i] = in[i];
+        if (!res) {
+            byte[] in = emitCode();
+            for (int i = 0; i < this.length(); i++) {
+                data[pos + i] = in[i];
+            }
         }
     }
 
@@ -67,7 +69,6 @@ public class Storage extends Node {
 //        }
 //        return rtn;
 //    }
-
     public static final int RESB = -1;
     public static final int RESW = -3;
     public static final int BYTE = -2;

@@ -1,5 +1,6 @@
 package code;
 
+import java.text.Format;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.LinkedList;
@@ -14,10 +15,11 @@ import java.util.Set;
  */
 public class Code {
 
-    private String programName;
+    public String programName = "";
     private LinkedList<Node> program;
     public int PCptr, locPtr, regB;
     public int startProgramPtr = 0;
+    public int endProgramPtr;
     public HashMap<String, Integer> symbols;
     public byte[] rawCode;
     public static int MAX_ADDR = (int) Math.pow(2, 20); //TODO: ?value
@@ -52,7 +54,7 @@ public class Code {
     }
 
     private void end() {
-
+        endProgramPtr = PCptr;
     }
 
     public void resolve() throws SemanticError {
@@ -75,7 +77,9 @@ public class Code {
         rawCode = new byte[PCptr];
         begin();
         for (Node no : program) {
+            no.enter(this);
             no.emitCode(rawCode, PCptr);
+            no.leave(this);
         }
         end();
 
@@ -84,13 +88,33 @@ public class Code {
 
     public String emitText() {
         StringBuffer buf = new StringBuffer();
-        
+        //HEADER //TODO edit before turning in
+        buf.append(String.format("H%-6s%06X%06X\n", programName, startProgramPtr, (endProgramPtr - startProgramPtr)/2));
+
+        int charCounter = 0;
+        StringBuffer toWrite = new StringBuffer();
         begin();
         for (Node no : program) {
-            no.emitText(buf);
-        }        
+            int start = PCptr;
+            no.enter(this);
+            String newText = no.emitText();
+            if (charCounter + newText.length() > 60) {
+                buf.append(String.format("T%06X%02X%s\n", start, charCounter, toWrite.toString()));
+                toWrite = new StringBuffer();
+                charCounter = 0;
+
+            }
+            toWrite.append(newText);
+            charCounter += newText.length();
+
+            no.leave(this);
+        }
+        if(charCounter != 0){
+           buf.append(String.format("T%06X%02X%s\n", PCptr, charCounter, toWrite.toString())); 
+        }
         end();
         
+        buf.append(String.format("E%06X\n",startProgramPtr ));
         return buf.toString();
     }
 

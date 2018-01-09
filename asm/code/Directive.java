@@ -24,14 +24,21 @@ public class Directive extends Node {
         this.symbol = symbol;
     }
 
-        @Override
+    @Override
     public void resolve(Code code) {
-
+        switch (mnemonic.opcode) {
+            case Directive.START:
+                code.programName = label;
+                code.startProgramPtr = value;
+                break;
+            case Directive.END:
+                break;
+        }
     }
-    
+
     @Override
     public byte[] emitCode() {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+       return new byte[0];
     }
 
     @Override
@@ -46,15 +53,15 @@ public class Directive extends Node {
 
     @Override
     public String toString() {
-        return mnemonic.toString() + " " + (value != 0 ? Integer.toString(value): "");
+        return mnemonic.toString() + " " + (value != 0 ? Integer.toString(value) : "");
     }
 
     /// OPCodes for Directive
-    public static final int NOBASE = -1;
-    public static final int LTORG = -1;
-    public static final int START = -1;
-    public static final int END = -1;
-    public static final int BASE = -1;
-    public static final int EQU = -1;
-    public static final int ORG = -1;
+    public static final int NOBASE = 9001;
+    public static final int LTORG = 9002;
+    public static final int START = 9003;
+    public static final int END = 9004;
+    public static final int BASE = 9005;
+    public static final int EQU = 9006;
+    public static final int ORG = 9007;
 }
