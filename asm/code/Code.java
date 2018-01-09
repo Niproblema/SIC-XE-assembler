@@ -99,10 +99,10 @@ public class Code {
             no.enter(this);
             String newText = no.emitText();
             if (charCounter + newText.length() > 60) {
-                buf.append(String.format("T%06X%02X%s\n", start, charCounter, toWrite.toString()));
+                buf.append(String.format("T%06X%02X%s\n", start, charCounter/2, toWrite.toString()));
                 toWrite = new StringBuffer();
                 charCounter = 0;
-                start = PCptr;
+                start = locPtr;
             }
             toWrite.append(newText);
             charCounter += newText.length();
@@ -110,7 +110,7 @@ public class Code {
             no.leave(this);
         }
         if(charCounter != 0){
-           buf.append(String.format("T%06X%02X%s\n", PCptr, charCounter, toWrite.toString())); 
+           buf.append(String.format("T%06X%02X%s\n", start, charCounter/2, toWrite.toString())); 
         }
         end();
         

@@ -26,7 +26,7 @@ public class MnemonicF2rn extends Mnemonic {
     public Node parse(Parser parser) throws SyntaxError {
         int reg = parser.parseRegister();
         parser.parseComma();
-        int n = parser.parseNumber(1, 16);
+        int n = parser.parseNumber(1, 16)-1;
         return new InstructionF2(this, reg, n);
     }    
 }

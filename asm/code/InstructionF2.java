@@ -34,7 +34,7 @@ public class InstructionF2 extends Node {
 
         byte[] rtn = new byte[2];
         rtn[0] = (byte) (mnemonic.opcode);
-        rtn[1] = (byte) (((reg1 << 4) & 0xF0) | ((reg2 << 4) & 0x0F));
+        rtn[1] = (byte) (((reg1 << 4) & 0xF0) | ((reg2) & 0x0F));
 
         return rtn;
     }
