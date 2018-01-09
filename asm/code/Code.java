@@ -88,7 +88,6 @@ public class Code {
 
     public String emitText() {
         StringBuffer buf = new StringBuffer();
-        //HEADER //TODO edit before turning in
         buf.append(String.format("H%-6s%06X%06X\n", programName, startProgramPtr, (endProgramPtr - startProgramPtr)));
 
         int charCounter = 0;
@@ -120,7 +119,18 @@ public class Code {
 
     //Listing datoteka: Lokacija, surova koda, ukaz
     public String dumpCode() {
-        return new String();
+        StringBuffer buf = new StringBuffer();
+        begin();
+        for (Node no : program) {
+            no.enter(this);
+            String obj = no.emitText();
+            String ukaz = no.toString();
+            buf.append(String.format("%-5s   %-8s   %s\n", Opcode.byteToHex(new byte[]{(byte)locPtr}), obj, ukaz));
+            no.leave(this);
+        }
+        end();
+        
+        return buf.toString();
     }
 
     public String dumpSymbols() {

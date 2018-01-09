@@ -47,8 +47,4 @@ public class InstructionF1 extends Node {
         return 1;
     }
 
-    @Override
-    public String toString() {
-        return mnemonic.toString();
-    }
 }

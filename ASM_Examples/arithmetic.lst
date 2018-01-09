@@ -1,0 +1,56 @@
+00                 test      START    0     
+00      4B006B     main      JSUB     107   
+03      3F0003     halt      J        3     
+06      FFFFFF     m1        WORD     -1, -1, -1
+09      FFFFFE     m2        WORD     -1, -1, -2
+0C      FFFFFD     m3        WORD     -1, -1, -3
+0F      800000     min       WORD     -128, 0, 0
+12      01000C     add       LDA      12    
+15      690003               LDB      3     
+18      9030                 ADDR     3,0
+1A      9400                 SUBR     0,0
+1C      6B000C               LDB      12    
+1F      9430                 SUBR     3,0
+21      1B0009               ADD      9     
+24      1B0006               ADD      6     
+27      1B0009               ADD      9     
+2A      1B0006               ADD      6     
+2D      4C7FFF               RSUB     -1    
+30      010006     mul       LDA      6     
+33      690007               LDB      7     
+36      9830                 MULR     3,0
+38      030009               LDA      9     
+3B      6B000C               LDB      12    
+3E      9830                 MULR     3,0
+40      4C7FFF               RSUB     -1    
+43      010006     div       LDA      6     
+46      6B0009               LDB      9     
+49      9C30                 DIVR     3,0
+4B      4C7FFF               RSUB     -1    
+4E      010001     shiftl    LDA      1     
+51      A402                 SHIFTL   0,2
+53      01000A               LDA      10    
+56      A403                 SHIFTL   0,3
+58      A403                 SHIFTL   0,3
+5A      A403                 SHIFTL   0,3
+5C      A403                 SHIFTL   0,3
+5E      A403                 SHIFTL   0,3
+60      A400                 SHIFTL   0,0
+62      A400                 SHIFTL   0,0
+64      A400                 SHIFTL   0,0
+66      A400                 SHIFTL   0,0
+68      4C7FFF               RSUB     -1    
+6B      0100AA     shiftr    LDA      170   
+6E      A800                 SHIFTR   0,0
+70      A801                 SHIFTR   0,1
+72      A802                 SHIFTR   0,2
+74      A803                 SHIFTR   0,3
+76      03000F               LDA      15    
+79      A803                 SHIFTR   0,3
+7B      A803                 SHIFTR   0,3
+7D      A800                 SHIFTR   0,0
+7F      A800                 SHIFTR   0,0
+81      A800                 SHIFTR   0,0
+83      A800                 SHIFTR   0,0
+85      4C7FFF               RSUB     -1    
+88                           END      main  

@@ -50,12 +50,13 @@ public class Directive extends Node {
     public int length() {
         return 0;
     }
-
+    
     @Override
     public String toString() {
-        return mnemonic.toString() + " " + (value != 0 ? Integer.toString(value) : "");
+        String rtn = String.format("%-6s   %-6s   %-6s", (label != null ? label : " "), this.mnemonic.toString(), (symbol != null ? symbol : value));
+        return rtn;
     }
-
+    
     /// OPCodes for Directive
     public static final int NOBASE = 9001;
     public static final int LTORG = 9002;

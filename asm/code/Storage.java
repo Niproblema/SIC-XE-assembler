@@ -69,6 +69,20 @@ public class Storage extends Node {
 //        }
 //        return rtn;
 //    }
+    @Override
+    public String toString() {
+        String aata = new String();
+        if (!res) {
+            int i = 0;
+            for (byte b : data) {
+                aata += (i == 0 ? "" : ", ") + b;
+                i++;
+            }
+        }
+        String rtn = String.format("%-6s   %-6s   %s", (label != null ? label : " "), this.mnemonic.toString(), aata);
+        return rtn;
+    }
+
     public static final int RESB = -1;
     public static final int RESW = -3;
     public static final int BYTE = -2;

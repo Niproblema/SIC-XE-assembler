@@ -68,6 +68,7 @@ public class InstructionF4 extends Node {
         return 4;
     }
 
+
     @Override
     public String toString() {
         String vpis = "";
@@ -77,6 +78,8 @@ public class InstructionF4 extends Node {
             vpis = "@";
         }
 
-        return mnemonic.toString() + " " + vpis + (symbol != null ? symbol : Integer.toString(value));
+        //return mnemonic.toString() + " " + vpis + (symbol != null ? symbol : (value != -1 ? Integer.toString(value) : ""));
+        String rtn = String.format("%-6s   %-6s   %-6s", (label != null ? label : " "), vpis+this.mnemonic.toString(), (symbol != null ? symbol : value));
+        return rtn;
     }
 }

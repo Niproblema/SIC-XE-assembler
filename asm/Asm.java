@@ -57,9 +57,8 @@ public class Asm {
             //Make some Files
             String bName = getFileBasename(args[0]);
 
-            writeFile(bName + ".log", code.dumpSymbols() + "\n" + code.dumpCode());
-            //writeFile(bName+".lst",);
-
+            writeFile(bName + ".log", code.dumpSymbols());
+            writeFile(bName+".lst",code.dumpCode());
             writeFile(bName+".obj",code.emitText());
         } catch (SyntaxError e) {
             System.err.println(e);

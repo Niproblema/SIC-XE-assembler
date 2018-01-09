@@ -54,7 +54,8 @@ public class InstructionF2 extends Node {
 
     @Override
     public String toString() {
-        return mnemonic.toString() + " " + (reg1 != -1 ? Integer.toString(reg1) : "") + " " + (reg2 != -1 ? Integer.toString(reg2) : "");
+        String rtn = String.format("%-6s   %-6s   %d,%d", (label != null ? label : " "), this.mnemonic.toString(), reg1, reg2);
+        return rtn;
     }
 
 }
