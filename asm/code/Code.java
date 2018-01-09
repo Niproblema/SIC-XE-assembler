@@ -89,20 +89,20 @@ public class Code {
     public String emitText() {
         StringBuffer buf = new StringBuffer();
         //HEADER //TODO edit before turning in
-        buf.append(String.format("H%-6s%06X%06X\n", programName, startProgramPtr, (endProgramPtr - startProgramPtr)/2));
+        buf.append(String.format("H%-6s%06X%06X\n", programName, startProgramPtr, (endProgramPtr - startProgramPtr)));
 
         int charCounter = 0;
         StringBuffer toWrite = new StringBuffer();
         begin();
+        int start = PCptr;
         for (Node no : program) {
-            int start = PCptr;
             no.enter(this);
             String newText = no.emitText();
             if (charCounter + newText.length() > 60) {
                 buf.append(String.format("T%06X%02X%s\n", start, charCounter, toWrite.toString()));
                 toWrite = new StringBuffer();
                 charCounter = 0;
-
+                start = PCptr;
             }
             toWrite.append(newText);
             charCounter += newText.length();
