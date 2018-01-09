@@ -199,7 +199,7 @@ public class Parser {
     }
 
     public Code parse(String input) throws SyntaxError, SemanticError {
-        lexer = new Lexer(input);
+        lexer = new Lexer(input);       
         return parseCode();
     }
 

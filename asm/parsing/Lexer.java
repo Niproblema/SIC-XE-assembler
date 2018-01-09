@@ -72,7 +72,7 @@ public class Lexer {
 	 */
 	public boolean skipWhitespace() {
 		while (peek() == ' ' || peek() == '\t') advance();
-		return peek() == '\n' || peek() == 0;
+		return peek() == '\n' || peek() == 0 || (peek() == '\r' && peek(1) == '\n');
 	}
 
 	String readTo(char delimiter) {

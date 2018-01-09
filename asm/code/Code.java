@@ -5,6 +5,7 @@ import java.util.HashMap;
 import java.util.LinkedList;
 import java.util.List;
 import java.util.Map;
+import java.util.Set;
 
 /**
  * Podporni razred za predmet Sistemska programska oprema.
@@ -20,8 +21,7 @@ public class Code {
     public HashMap<String, Integer> symbols;
     public byte[] rawCode;
     public static int MAX_ADDR = (int) Math.pow(2, 20); //TODO: ?value
-    public static int MAX_WORD = MAX_ADDR-1; //TODO: ?value
-    
+    public static int MAX_WORD = MAX_ADDR - 1; //TODO: ?value
 
     public Code() {
         program = new LinkedList<>();
@@ -36,7 +36,7 @@ public class Code {
         nodeToAdd.activate(this);
         locPtr = PCptr;
     }
-    
+
     public void defineSymbol(String sym, int val) {
         symbols.put(sym, val);
     }
@@ -64,33 +64,47 @@ public class Code {
         }
         end();
     }
-    
-    public void print(){
-        for(Node node : program){
+
+    public void print() {
+        for (Node node : program) {
             System.out.println(node.toString());
         }
     }
 
     public byte[] emitCode() {
         rawCode = new byte[PCptr];
-        PCptr = 0;
-        locPtr = 0;
-        for(Node no : program){
+        begin();
+        for (Node no : program) {
             no.emitCode(rawCode, PCptr);
         }
-        
+        end();
+
         return rawCode;
     }
 
     public String emitText() {
-        return new String();
+        StringBuffer buf = new StringBuffer();
+        
+        begin();
+        for (Node no : program) {
+            no.emitText(buf);
+        }        
+        end();
+        
+        return buf.toString();
     }
 
+    //Listing datoteka: Lokacija, surova koda, ukaz
     public String dumpCode() {
         return new String();
     }
 
     public String dumpSymbols() {
-        return new String();
+        String out = new String();
+
+        for (Map.Entry<String, Integer> en : symbols.entrySet()) {
+            out += en.getKey() + " " + en.getValue().toString() + "\n";
+        }
+        return out;
     }
 }

@@ -28,7 +28,7 @@ public class InstructionF4 extends Node {
         this.symbol = symbol;
         this.ni = ni;
     }
-    
+
     @Override
     public void resolve(Code code) {
         if (symbol != null) {
@@ -39,21 +39,29 @@ public class InstructionF4 extends Node {
 
     @Override
     public byte[] emitCode() {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        byte[] rtn = new byte[4];
+        rtn[0] = (byte) (mnemonic.opcode & 0xFC | ((flags.n << 1) & 0x02) | (flags.i & 0x01));
+        if (flags.n == 0 && flags.i == 0) {
+            rtn[1] = (byte) (((flags.x << 7) & 0x80) | ((value >> 16) & 0x7F));
+        } else {
+            rtn[1] = (byte) (((flags.x << 7) & 0x80) | ((flags.b << 6) & 0x40) | ((flags.p << 5) & 0x20) | ((flags.e << 4) & 0x10) | ((value >> 16) & 0x0F));
+        }
+
+        rtn[2] = (byte) ((value >> 8) & 0xFF);
+        rtn[3] = (byte) (value & 0xFF);
+
+        return rtn;
     }
 
     @Override
     public void emitCode(byte[] data, int pos) {
         byte[] in = emitCode();
-        for(int i = 0; i < this.length(); i++){
-            data[pos+i] = in[i];
+        for (int i = 0; i < this.length(); i++) {
+            data[pos + i] = in[i];
         }
     }
 
-    @Override
-    public void emitText(StringBuffer buff) {
-        super.emitText(buff); //To change body of generated methods, choose Tools | Templates.
-    }
+
 
     @Override
     public int length() {

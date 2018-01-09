@@ -39,20 +39,15 @@ public class Storage extends Node {
 
     @Override
     public byte[] emitCode() {
-        return (res? new byte[this.length()] : this.data);
+        return (res ? new byte[this.length()] : this.data);
     }
 
     @Override
     public void emitCode(byte[] data, int pos) {
         byte[] in = emitCode();
-        for(int i = 0; i < this.length(); i++){
-            data[pos+i] = in[i];
+        for (int i = 0; i < this.length(); i++) {
+            data[pos + i] = in[i];
         }
-    }
-
-    @Override
-    public void emitText(StringBuffer buff) {
-        super.emitText(buff); //To change body of generated methods, choose Tools | Templates.
     }
 
     @Override
@@ -60,11 +55,19 @@ public class Storage extends Node {
         return (res ? volumneRes : data.length);
     }
 
-    //TODO: finish this maybe
 //    @Override
-//    public String toString() {        
-//    //    return mnemonic.toString() + " " + vpis+(symbol != null ? symbol : Integer.toString(value));
+//    public String toString() {
+//        String rtn = new String();
+//        if (!res) {
+//            int i = 0;
+//            for(byte b : data){
+//                rtn += (i == 0 ? "" : ", ") + b;
+//                i++;
+//            }
+//        }
+//        return rtn;
 //    }
+
     public static final int RESB = -1;
     public static final int RESW = -3;
     public static final int BYTE = -2;

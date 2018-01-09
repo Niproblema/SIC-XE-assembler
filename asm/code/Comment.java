@@ -32,11 +32,6 @@ public class Comment extends Node {
     }
 
     @Override
-    public void emitText(StringBuffer buff) {
-        super.emitText(buff); //To change body of generated methods, choose Tools | Templates.
-    }
-
-    @Override
     public int length() {
         return 0;
     }

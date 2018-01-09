@@ -39,7 +39,16 @@ public class InstructionF3 extends Node {
 
     @Override
     public byte[] emitCode() {
+        byte[] rtn = new byte[3];
+        rtn[0] = (byte)(mnemonic.opcode & 0xFC | ((flags.n << 1) & 0x02) | (flags.i & 0x01));
+        if(flags.n == 0 && flags.i == 0){
+            rtn[1] = (byte)(((flags.x << 7) & 0x80) | ((value >> 8)& 0x7F));
+        }else
+        rtn[1] = (byte)(((flags.x << 7) & 0x80) | ((flags.b << 6) & 0x40) | ((flags.p << 5) & 0x20) | ((flags.e << 4) & 0x10) | ((value >> 8)& 0x0F));
         
+        rtn[2] = (byte)(value & 0xFF);
+        
+        return rtn;
     }
 
     @Override
@@ -48,11 +57,6 @@ public class InstructionF3 extends Node {
         for(int i = 0; i < this.length(); i++){
             data[pos+i] = in[i];
         }
-    }
-
-    @Override
-    public void emitText(StringBuffer buff) {
-        super.emitText(buff); //To change body of generated methods, choose Tools | Templates.
     }
 
     @Override

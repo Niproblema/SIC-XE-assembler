@@ -29,20 +29,17 @@ public class InstructionF1 extends Node {
 
     @Override
     public byte[] emitCode() {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        byte[] rtn = new byte[1];
+        rtn[0] = (byte) (mnemonic.opcode);
+        return rtn;
     }
 
     @Override
     public void emitCode(byte[] data, int pos) {
         byte[] in = emitCode();
-        for(int i = 0; i < this.length(); i++){
-            data[pos+i] = in[i];
+        for (int i = 0; i < this.length(); i++) {
+            data[pos + i] = in[i];
         }
-    }
-
-    @Override
-    public void emitText(StringBuffer buff) {
-        super.emitText(buff); //To change body of generated methods, choose Tools | Templates.
     }
 
     @Override

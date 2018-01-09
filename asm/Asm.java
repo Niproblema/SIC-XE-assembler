@@ -41,6 +41,7 @@ public class Asm {
         Code code;
         try {
             code = parser.parse(input);
+            code.resolve();
             code.print();
         } catch (SyntaxError e) {
             System.err.println(e);
