@@ -147,7 +147,7 @@ public class Parser {
             return data;
         } else if (Character.isDigit(lexer.peek())) {
             // number, represented by word
-            int num = parseNumber(0, Code.MAX_WORD);
+            int num = parseNumber(-(2 << 23), (1 << 24) - 1);
             byte[] data = new byte[3];
             data[2] = (byte) num;
             data[1] = (byte) (num >> 8);

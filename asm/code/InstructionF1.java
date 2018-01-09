@@ -10,6 +10,7 @@ package code;
  * @author jan
  */
 public class InstructionF1 extends Node {
+
     public int value;
     public String symbol;
 
@@ -18,6 +19,13 @@ public class InstructionF1 extends Node {
         this.value = value;
     }
 
+    @Override
+    public void resolve(Code code) {
+        if (symbol != null) {
+            value = code.resolveSymbol(symbol);
+            symbol = null;
+        }
+    }
 
     @Override
     public byte[] emitCode() {
@@ -26,7 +34,10 @@ public class InstructionF1 extends Node {
 
     @Override
     public void emitCode(byte[] data, int pos) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        byte[] in = emitCode();
+        for(int i = 0; i < this.length(); i++){
+            data[pos+i] = in[i];
+        }
     }
 
     @Override
@@ -37,5 +48,10 @@ public class InstructionF1 extends Node {
     @Override
     public int length() {
         return 1;
+    }
+
+    @Override
+    public String toString() {
+        return mnemonic.toString();
     }
 }

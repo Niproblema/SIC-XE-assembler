@@ -20,7 +20,6 @@ public class MnemonicD extends Mnemonic {
 
     @Override
     public Node parse(Parser parser) throws SyntaxError {
-        //TODO:retrun ?
         return new Directive(this, 0);
     }
 

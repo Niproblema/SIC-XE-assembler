@@ -21,16 +21,16 @@ public abstract class Node {
         public void enter(Code code){
             code.PCptr += this.length();
         }
-        public void resolve(Code code){
-            //resolves symbol
-        }
+        public abstract void resolve(Code code);
+        
         public void leave(Code code){
             
         }
         
         public void activate(Code code){
-            //if(symbol.value != null)
-            //code.symbols.put(symbol.string, symbol.value);
+            if(label != null){
+                code.defineSymbol(label, code.locPtr);
+            }
         }
                 
         public abstract int length();
@@ -68,6 +68,7 @@ public abstract class Node {
 	 */
 	@Override
 	public String toString() {
+            
 		return mnemonic.toString() + " " + operandToString();
 	}
 

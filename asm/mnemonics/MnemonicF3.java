@@ -7,6 +7,7 @@ package mnemonics;
 
 import code.Code;
 import code.Directive;
+import code.Flags;
 import code.InstructionF3;
 import code.Node;
 import parsing.Parser;
@@ -24,7 +25,7 @@ public class MnemonicF3 extends Mnemonic {
 
     @Override
     public Node parse(Parser parser) throws SyntaxError {
-         return new InstructionF3(this, -1);
+         return new InstructionF3(this, -1, new Flags(0,0,0,0,0,0));
     }
     
 }

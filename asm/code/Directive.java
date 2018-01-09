@@ -24,6 +24,11 @@ public class Directive extends Node {
         this.symbol = symbol;
     }
 
+        @Override
+    public void resolve(Code code) {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    }
+    
     @Override
     public byte[] emitCode() {
         throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
@@ -42,6 +47,11 @@ public class Directive extends Node {
     @Override
     public int length() {
         return 0;
+    }
+
+    @Override
+    public String toString() {
+        return mnemonic.toString() + " " + (value != 0 ? Integer.toString(value): "");
     }
 
     /// OPCodes for Directive

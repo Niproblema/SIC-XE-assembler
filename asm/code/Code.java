@@ -18,16 +18,23 @@ public class Code {
     public int PCptr, locPtr, regB;
     public int startProgramPtr = 0;
     public HashMap<String, Integer> symbols;
+    public byte[] rawCode;
     public static int MAX_ADDR = (int) Math.pow(2, 20); //TODO: ?value
     public static int MAX_WORD = MAX_ADDR-1; //TODO: ?value
+    
 
     public Code() {
         program = new LinkedList<>();
         symbols = new HashMap<>();
+        PCptr = 0;
+        locPtr = 0;
     }
 
     public void append(Node nodeToAdd) {
         program.add(nodeToAdd);
+        PCptr += nodeToAdd.length();
+        nodeToAdd.activate(this);
+        locPtr = PCptr;
     }
     
     public void defineSymbol(String sym, int val) {
@@ -65,7 +72,14 @@ public class Code {
     }
 
     public byte[] emitCode() {
-        return new byte[0];
+        rawCode = new byte[PCptr];
+        PCptr = 0;
+        locPtr = 0;
+        for(Node no : program){
+            no.emitCode(rawCode, PCptr);
+        }
+        
+        return rawCode;
     }
 
     public String emitText() {

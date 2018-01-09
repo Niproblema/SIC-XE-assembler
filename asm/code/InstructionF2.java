@@ -19,6 +19,11 @@ public class InstructionF2 extends Node {
         this.reg1 = reg1;
         this.reg2 = reg2;
     }
+    
+        @Override
+    public void resolve(Code code) {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    }
 
     @Override
     public byte[] emitCode() {
@@ -27,7 +32,10 @@ public class InstructionF2 extends Node {
 
     @Override
     public void emitCode(byte[] data, int pos) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        byte[] in = emitCode();
+        for(int i = 0; i < this.length(); i++){
+            data[pos+i] = in[i];
+        }
     }
 
     @Override
@@ -38,6 +46,10 @@ public class InstructionF2 extends Node {
     @Override
     public int length() {
         return 2;
+    }
+    @Override
+    public String toString() {
+        return mnemonic.toString() + " " + (reg1 != -1 ? Integer.toString(reg1): "") + " "+(reg2 != -1 ? Integer.toString(reg2): "");
     }
     
 }

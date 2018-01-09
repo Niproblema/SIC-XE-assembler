@@ -28,7 +28,7 @@ public class MnemonicSn extends Mnemonic {
         int val = 0;
         try{
             for(byte b : data){
-                val += b;
+                val += b * (opcode == Storage.RESW ? 3 : 1);
             }
         }catch(Exception e){
             System.out.println("Error parsing MNSn, "+e.toString());
