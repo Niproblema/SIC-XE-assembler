@@ -26,6 +26,10 @@ public class Directive extends Node {
 
     @Override
     public void resolve(Code code) {
+        if (symbol != null) {
+            value = code.resolveSymbol(symbol);
+            symbol = null;
+        }
         switch (mnemonic.opcode) {
             case Directive.START:
                 code.programName = label;
@@ -33,12 +37,18 @@ public class Directive extends Node {
                 break;
             case Directive.END:
                 break;
+            case Directive.BASE:
+                code.regB = value;
+                break;
+            case Directive.NOBASE:
+                code.regB = 0;
+                break;
         }
     }
 
     @Override
     public byte[] emitCode() {
-       return new byte[0];
+        return new byte[0];
     }
 
     @Override
@@ -50,13 +60,13 @@ public class Directive extends Node {
     public int length() {
         return 0;
     }
-    
+
     @Override
     public String toString() {
         String rtn = String.format("%-6s   %-6s   %-6s", (label != null ? label : " "), this.mnemonic.toString(), (symbol != null ? symbol : value));
         return rtn;
     }
-    
+
     /// OPCodes for Directive
     public static final int NOBASE = 9001;
     public static final int LTORG = 9002;

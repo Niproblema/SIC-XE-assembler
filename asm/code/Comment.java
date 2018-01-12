@@ -17,18 +17,18 @@ public class Comment extends Node {
     }
 
     @Override
-    public void resolve(Code code) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    public void resolve(Code code) {   
+        //Nuthing
     }   
 
     @Override
     public byte[] emitCode() {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+       return null;
     }
 
     @Override
     public void emitCode(byte[] data, int pos) {
-        
+        //Nuthing
     }
 
     @Override

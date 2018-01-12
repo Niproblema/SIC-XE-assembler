@@ -35,6 +35,22 @@ public class InstructionF3 extends Node {
             value = code.resolveSymbol(symbol);
             symbol = null;
         }
+        int odmik = value - code.locPtr;
+        int bazniOdmik = value - code.regB;
+
+        flags.b = code.regB > 0 && bazniOdmik >= 0 && bazniOdmik <= 4095 ? 1 : 0;
+        flags.p = flags.b == 0 && odmik >= -2048 && odmik <= 2047 ? 1 : 0;
+        
+        if(flags.b == 0 && flags.p == 0){
+            if(value < 0 || value > 4095){
+                //Error
+                System.out.println("Error, wrong address");
+            }
+        }else if(flags.b == 0){
+            value += code.regB;
+        }else if(flags.p == 0){
+            value += code.locPtr;
+        }
     }
 
     @Override
@@ -75,7 +91,7 @@ public class InstructionF3 extends Node {
         }
 
         //return mnemonic.toString() + " " + vpis + (symbol != null ? symbol : (value != -1 ? Integer.toString(value) : ""));
-        String rtn = String.format("%-6s   %-6s   %-6s", (label != null ? label : " "), vpis+this.mnemonic.toString(), (symbol != null ? symbol : value));
+        String rtn = String.format("%-6s   %-6s   %-6s", (label != null ? label : " "), vpis + this.mnemonic.toString(), (symbol != null ? symbol : value));
         return rtn;
 
     }

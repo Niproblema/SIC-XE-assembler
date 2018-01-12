@@ -69,6 +69,7 @@ public class Opcode {
     private static final char[] hexes = new char[]{'0','1','2','3','4','5','6','7','8','9','A','B','C','D','E','F'};
     
     public static String byteToHex(byte[] b){
+        if( b == null) return "";
         StringBuffer out = new StringBuffer();
         for(byte add:b){
             out.append( hexes[(add>>4)&0x0F] );

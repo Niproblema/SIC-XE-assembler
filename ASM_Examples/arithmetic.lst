@@ -53,4 +53,4 @@
 81      A800                 SHIFTR   0,0
 83      A800                 SHIFTR   0,0
 85      4C7FFF               RSUB     -1    
-88                           END      main  
+88                           END      0     
