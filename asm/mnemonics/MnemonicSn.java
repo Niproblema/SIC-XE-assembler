@@ -24,15 +24,16 @@ public class MnemonicSn extends Mnemonic {
 
     @Override
     public Node parse(Parser parser) throws SyntaxError {
-        byte[] data = parser.parseData();
         int val = 0;
-        try{
-            for(byte b : data){
-                val += b * (opcode == Storage.RESW ? 3 : 1);
-            }
-        }catch(Exception e){
-            System.out.println("Error parsing MNSn, "+e.toString());
-        }      
+        while (Character.isDigit(parser.lexer.peek())) {     
+            int num = parser.parseNumber(0, (1 << 20));
+            
+            val += num * (opcode == Storage.RESW ? 3 : 1);
+            
+            parser.parseIndexed();
+        }
+
+
         return new Storage(this, val);
-    }   
+    }
 }

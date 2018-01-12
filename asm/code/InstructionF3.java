@@ -33,24 +33,25 @@ public class InstructionF3 extends Node {
             if (symbol != null) {
                 value = code.resolveSymbol(symbol);
             }
-            if (flags.i != 1 || flags.n != 0) {
-                int odmik = value - code.PCptr;
-                int bazniOdmik = value - code.regB;
+            int odmik = value - code.PCptr;
+            int bazniOdmik = value - code.regB;
 
-                flags.b = code.regB > 0 && bazniOdmik >= 0 && bazniOdmik <= 4095 ? 1 : 0;
-                flags.p = flags.b == 0 && odmik >= -2048 && odmik <= 2047 ? 1 : 0;
+            flags.p = flags.b == 0 && odmik >= -2048 && odmik <= 2047 ? 1 : 0;
+            flags.b = flags.p == 0 && code.regB > 0 && bazniOdmik >= 0 && bazniOdmik <= 4095 ? 1 : 0;
 
-                if (flags.b == 0 && flags.p == 0) {
-                    if (value < 0 || value > 4095) {
-                        //Error
-                        System.out.println("Error, wrong address");
-                    }
-                } else if (flags.b == 1) {
-                    value = bazniOdmik;
-                } else if (flags.p == 1) {
-                    value = odmik;
+            if (flags.b == 0 && flags.p == 0) {
+                if (value < 0 || value > 4095) {
+                    //Error
+                    System.out.println("Error, wrong address");
                 }
+            } else if (flags.b == 1) {
+                value = bazniOdmik;
+            } else if (flags.p == 1) {
+                value = odmik;
             }
+        }
+        if (flags.b == 0 && flags.p == 0) {
+            code.relocations.add(new Modification(code.locPtr + 1, (this.length() - 1) * 2 - 1));
         }
     }
 

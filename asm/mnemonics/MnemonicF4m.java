@@ -27,7 +27,7 @@ public class MnemonicF4m extends Mnemonic {
     @Override
     public Node parse(Parser parser) throws SyntaxError {
         parser.lexer.skipWhitespace();
-        Flags fla = new Flags(1, 1, 0, 0, 0, 0);
+        Flags fla = new Flags(1, 1, 0, 0, 0, 1);
         if (parser.lexer.advanceIf('#')) {
             fla.i = 1;
             fla.n = 0;

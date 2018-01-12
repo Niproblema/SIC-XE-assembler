@@ -17,6 +17,7 @@ public class Code {
 
     public String programName = "";
     private LinkedList<Node> program;
+    public LinkedList<Modification> relocations = new LinkedList<Modification>();
     public int PCptr, locPtr, regB;
     public int startProgramPtr = 0;
     public int endProgramPtr;
@@ -47,13 +48,13 @@ public class Code {
         return symbols.get(sym);
     }
 
-    private void begin() {
+    public void begin() {
         PCptr = startProgramPtr;
         locPtr = startProgramPtr;
         regB = 0;
     }
 
-    private void end() {
+    public void end() {
         endProgramPtr = PCptr;
     }
 
@@ -74,7 +75,8 @@ public class Code {
     }
 
     public byte[] emitCode() {
-        rawCode = new byte[PCptr];
+        //This is not good idea?
+        rawCode = new byte[endProgramPtr-startProgramPtr];
         begin();
         for (Node no : program) {
             no.enter(this);
@@ -113,6 +115,11 @@ public class Code {
         }
         end();
         
+        for(Modification mm : relocations){
+            buf.append(String.format("M%06X%02X\n", mm.address, mm.length));
+        }
+        
+        
         buf.append(String.format("E%06X\n",startProgramPtr ));
         return buf.toString();
     }
@@ -125,7 +132,8 @@ public class Code {
             no.enter(this);
             String obj = no.emitText();
             String ukaz = no.toString();
-            buf.append(String.format("%-5s   %-8s   %s\n", Opcode.byteToHex(new byte[]{(byte)locPtr}), obj, ukaz));
+            String addr = Integer.toHexString(locPtr);
+            buf.append(String.format("%-5s   %-8s   %s\n", addr, obj, ukaz));
             no.leave(this);
         }
         end();

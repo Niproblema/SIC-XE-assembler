@@ -31,7 +31,10 @@ public class InstructionF4 extends Node {
     public void resolve(Code code) {
         if (symbol != null) {
             value = code.resolveSymbol(symbol);
-            symbol = null;
+        }
+
+        if (flags.b == 0 && flags.p == 0) {
+            code.relocations.add(new Modification(code.locPtr + 1, (this.length() - 1) * 2 - 1));
         }
     }
 
@@ -59,13 +62,10 @@ public class InstructionF4 extends Node {
         }
     }
 
-
-
     @Override
     public int length() {
         return 4;
     }
-
 
     @Override
     public String toString() {
@@ -77,7 +77,7 @@ public class InstructionF4 extends Node {
         }
 
         //return mnemonic.toString() + " " + vpis + (symbol != null ? symbol : (value != -1 ? Integer.toString(value) : ""));
-        String rtn = String.format("%-6s   %-6s   %-6s", (label != null ? label : " "), this.mnemonic.toString(), vpis+(symbol != null ? symbol : value));
+        String rtn = String.format("%-6s   %-6s   %-6s", (label != null ? label : " "), this.mnemonic.toString(), vpis + (symbol != null ? symbol : value));
         return rtn;
     }
 }
