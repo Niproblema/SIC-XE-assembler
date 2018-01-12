@@ -25,7 +25,7 @@ public class MnemonicF3 extends Mnemonic {
 
     @Override
     public Node parse(Parser parser) throws SyntaxError {
-         return new InstructionF3(this, -1, new Flags(0,0,0,0,0,0));
+         return new InstructionF3(this, 0, new Flags(0,0,0,0,0,0));
     }
     
 }

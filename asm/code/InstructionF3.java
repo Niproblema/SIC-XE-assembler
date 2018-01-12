@@ -11,7 +11,7 @@ package code;
  */
 public class InstructionF3 extends Node {
 
-    public int value, ni;
+    public int value;
     public String symbol;
     public Flags flags;
 
@@ -19,37 +19,37 @@ public class InstructionF3 extends Node {
         super(mD);
         this.flags = fla;
         this.value = value;
-        this.ni = ni;
     }
 
     public InstructionF3(mnemonics.Mnemonic mD, String symbol, Flags fla) {
         super(mD);
         this.flags = fla;
         this.symbol = symbol;
-        this.ni = ni;
     }
 
     @Override
     public void resolve(Code code) {
-        if (symbol != null) {
-            value = code.resolveSymbol(symbol);
-            symbol = null;
-        }
-        int odmik = value - code.locPtr;
-        int bazniOdmik = value - code.regB;
-
-        flags.b = code.regB > 0 && bazniOdmik >= 0 && bazniOdmik <= 4095 ? 1 : 0;
-        flags.p = flags.b == 0 && odmik >= -2048 && odmik <= 2047 ? 1 : 0;
-        
-        if(flags.b == 0 && flags.p == 0){
-            if(value < 0 || value > 4095){
-                //Error
-                System.out.println("Error, wrong address");
+        if (mnemonic.opcode != Opcode.RSUB) {
+            if (symbol != null) {
+                value = code.resolveSymbol(symbol);
+                symbol = null;
             }
-        }else if(flags.b == 0){
-            value += code.regB;
-        }else if(flags.p == 0){
-            value += code.locPtr;
+            int odmik = value - code.locPtr;
+            int bazniOdmik = value - code.regB;
+
+            flags.b = code.regB > 0 && bazniOdmik >= 0 && bazniOdmik <= 4095 ? 1 : 0;
+            flags.p = flags.b == 0 && odmik >= -2048 && odmik <= 2047 ? 1 : 0;
+
+            if (flags.b == 0 && flags.p == 0) {
+                if (value < 0 || value > 4095) {
+                    //Error
+                    System.out.println("Error, wrong address");
+                }
+            } else if (flags.b == 0) {
+                value += code.regB;
+            } else if (flags.p == 0) {
+                value += code.locPtr;
+            }
         }
     }
 
@@ -84,9 +84,9 @@ public class InstructionF3 extends Node {
     @Override
     public String toString() {
         String vpis = "";
-        if (ni == 1) {
+        if (flags.i == 1) {
             vpis = "#";
-        } else if (ni == 2) {
+        } else if (flags.n == 2) {
             vpis = "@";
         }
 

@@ -3,12 +3,12 @@
 00                 . load B register and notify assembler
 00      69000010             +LDB     16    
 04                           BASE     16    
-04      014014               LDA      20    
-07      014017               LDA      23    
+04      014014              # LDA      20    
+07      014017              # LDA      23    
 0A                           RESB     
 10      464F4F     b         BYTE     70, 79, 79
 13                 . ********** other **********
-13      014035               LDA      53    
+13      014035              # LDA      53    
 16                           NOBASE   0     
 16      01000022             +LDA     34    
 1A                           RESB     
