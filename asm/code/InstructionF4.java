@@ -11,7 +11,7 @@ package code;
  */
 public class InstructionF4 extends Node {
 
-    public int value, ni;
+    public int value;
     public String symbol;
     Flags flags;
 
@@ -19,14 +19,12 @@ public class InstructionF4 extends Node {
         super(mD);
         this.flags = fla;
         this.value = value;
-        this.ni = ni;
     }
 
     public InstructionF4(mnemonics.Mnemonic mD, String symbol, Flags fla) {
         super(mD);
         this.flags = fla;
         this.symbol = symbol;
-        this.ni = ni;
     }
 
     @Override
@@ -72,14 +70,14 @@ public class InstructionF4 extends Node {
     @Override
     public String toString() {
         String vpis = "";
-        if (ni == 1) {
+        if (flags.i == 1 && flags.n == 0) {
             vpis = "#";
-        } else if (ni == 2) {
+        } else if (flags.n == 1 && flags.i == 0) {
             vpis = "@";
         }
 
         //return mnemonic.toString() + " " + vpis + (symbol != null ? symbol : (value != -1 ? Integer.toString(value) : ""));
-        String rtn = String.format("%-6s   %-6s   %-6s", (label != null ? label : " "), vpis+this.mnemonic.toString(), (symbol != null ? symbol : value));
+        String rtn = String.format("%-6s   %-6s   %-6s", (label != null ? label : " "), this.mnemonic.toString(), vpis+(symbol != null ? symbol : value));
         return rtn;
     }
 }

@@ -50,7 +50,7 @@ public class Code {
     private void begin() {
         PCptr = startProgramPtr;
         locPtr = startProgramPtr;
-        regB = -1;
+        regB = 0;
     }
 
     private void end() {
