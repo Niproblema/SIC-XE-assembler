@@ -1,0 +1,36 @@
+0                  ARITM     START    0     
+0       6F2054               LDS      X     
+3       772054               LDT      Y     
+6       012FF7               LDA      #-9   
+9       9040                 ADDR     4,0
+b       9050                 ADDR     5,0
+d       0F2038               STA      SUM   
+10      012FED               LDA      #-19  
+13      9050                 ADDR     5,0
+15      9440                 SUBR     4,0
+17      0F2031               STA      DIFF  
+1a      012FE3               LDA      #-29  
+1d      9050                 ADDR     5,0
+1f      9840                 MULR     4,0
+21      0F202A               STA      PROD  
+24      012FD9               LDA      #-39  
+27      9050                 ADDR     5,0
+29      9C40                 DIVR     4,0
+2b      0F2023               STA      QUOT  
+2e      9840                 MULR     4,0
+30      A050                 COMPR    5,0
+32      372008               JGT      TVEC  
+35      9450                 SUBR     5,0
+37      0F201A               STA      MOD   
+3a      3F2008               J        HALT  
+3d      9405       TVEC      SUBR     0,5
+3f      872012               STT      MOD   
+42      3F2000               J        HALT  
+45      3F2FFD     HALT      J        HALT  
+48                 SUM       RESW     
+4b                 DIFF      RESW     
+4e                 PROD      RESW     
+51                 QUOT      RESW     
+54                 MOD       RESW     
+57      000009     X         WORD     0, 0, 9
+5a      00000A     Y         WORD     0, 0, 10

@@ -24,16 +24,29 @@ public class Directive extends Node {
         this.symbol = symbol;
     }
 
+    boolean startActivated = false;
+
     @Override
     public void activate(Code code) {
         switch (mnemonic.opcode) {
             case Directive.START:
+                startActivated = true;
                 code.programName = label;
                 code.startProgramPtr = value;
                 code.PCptr = value;
                 code.locPtr = value;
                 break;
             case Directive.END:
+                break;
+            case Directive.ORG:
+                if (!startActivated) {
+                    startActivated = true;
+                    code.programName = label;
+                    code.startProgramPtr = value;
+                    code.PCptr = value;
+                    code.locPtr = value;
+                }
+
                 break;
         }
         super.activate(code); //To change body of generated methods, choose Tools | Templates.
@@ -59,6 +72,12 @@ public class Directive extends Node {
                 break;
             case Directive.NOBASE:
                 code.regB = 0;
+                break;
+            case Directive.ORG:
+                code.PCptr = value;
+                code.locPtr = value;
+                break;
+            case Directive.EQU:
                 break;
         }
     }

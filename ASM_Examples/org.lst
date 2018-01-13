@@ -1,0 +1,15 @@
+0                  . Test: ORG
+0       032FFE               LDA      -2    
+3                            ORG      256   
+3       032EFF               LDA      -257  
+6                            ORG      512   
+6       032E00               LDA      -512  
+9                  .
+9                  a         EQU      4096  
+9                            ORG      515   
+9                  tab       RESB     
+1009                         ORG      0     
+1009               x         RESB     
+100a               y         RESB     
+100b                         ORG      0     
+100b    C4                   FIX            

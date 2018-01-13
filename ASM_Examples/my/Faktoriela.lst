@@ -1,0 +1,114 @@
+0                  FAKTO     START    0     
+0       4B2055               JSUB     STACKINIT
+3       E32021     MAINLO    TD       INPUT 
+6       332FFA               JEQ      MAINLO
+9                  .berem iz inputa
+9       DB201B               RD       INPUT 
+c                  .iz ascii
+c       1D2021               SUB      #33   
+f       292FEE               COMP     #-18  
+12      33200C               JEQ      HALT  
+15      4B2013               JSUB     FKTORA
+18      4B0C49               JSUB     ECHONUM
+1b      4B0DED               JSUB     ECHONL
+1e      3F2FE2               J        MAINLO
+21      3F2FFD     HALT      J        HALT  
+24      00000A     NEWLN     WORD     0, 0, 10
+27      FA         INPUT     BYTE     -6
+28      000001     OUTPUT    BYTE     0, 0, 1
+2b                 .Faktoriela funkcija
+2b      160C43     FKTORA    STL      @STACKPTR
+2e      4B2036               JSUB     STACKPUSH
+31      292FCE               COMP     #-50  
+34      3B2018               JLT      BAILOUT
+37      0E0C43               STA      @STACKPTR
+3a      4B202A               JSUB     STACKPUSH
+3d      1D2FC1               SUB      #-63  
+40      4B2FE8               JSUB     FKTORA
+43      0F0C46               STA      TEMP  
+46      4B2030               JSUB     STACKPOP
+49      020C43               LDA      @STACKPTR
+4c      230C46               MUL      TEMP  
+4f      4B2027     BAILOUT    JSUB     STACKPOP
+52      0A0C43               LDL      @STACKPTR
+55      4C0000               RSUB     0     
+58                 .Stack funkcije
+58      0F0C46     STACKINIT    STA      TEMP  
+5b      01202D               LDA      #STACK
+5e      0F0C43               STA      STACKPTR
+61      030C46               LDA      TEMP  
+64      4C0000               RSUB     0     
+67      0F0C46     STACKPUSH    STA      TEMP  
+6a      030C43               LDA      STACKPTR
+6d      192F93               ADD      #-109 
+70      0F0C43               STA      STACKPTR
+73      030C46               LDA      TEMP  
+76      4C0000               RSUB     0     
+79      0F0C46     STACKPOP    STA      TEMP  
+7c      030C43               LDA      STACKPTR
+7f      1D2F81               SUB      #-127 
+82      0F0C43               STA      STACKPTR
+85      030C46               LDA      TEMP  
+88      4C0000               RSUB     0     
+8b                 .SKLAD
+8b                 STACK     RESW     
+c43                STACKPTR    RESW     
+c46                .OSTALO
+c46                TEMP      RESW     
+c49                .Funkcija za desetiski izpis
+c49     0F2066     ECHONUM    STA      NUM   
+c4c                .Shranim registe, ki jih uporabljam
+c4c     0F219B               STA      REGSTA
+c4f     7F218F               STS      REGSTS
+c52     87218F               STT      REGSTT
+c55     13218F               STX      REGSTX
+c58     6D0000               LDS      #0    
+c5b     050000               LDX      #0    
+c5e     772051     LOO       LDT      NUM   
+c61     03204E               LDA      NUM   
+c64     A054                 COMPR    5,4
+c66     33201C               JEQ      IZPIS 
+c69     25000A               DIV      #10   
+c6c     21000A               MUL      #10   
+c6f                .mod 10
+c6f     9405                 SUBR     0,5
+c71     25000A               DIV      #10   
+c74     0F203B               STA      NUM   
+c77     010000               LDA      #0    
+c7a     9050                 ADDR     5,0
+c7c     572036               STCH     BUFFER
+c7f     2D0000               TIX      #0    
+c82     3F2FD9               J        LOO   
+c85                .prva je 0
+c85     750001     IZPIS     LDT      #1    
+c88     9451                 SUBR     5,1
+c8a     9451       IZLOOP    SUBR     5,1
+c8c     2D0000               TIX      #0    
+c8f     3B2011               JLT      EXIT  
+c92     532020               LDCH     BUFFER
+c95                .ascii
+c95     190030               ADD      #48   
+c98     DF0028               WD       OUTPUT
+c9b     1D0030               SUB      #48   
+c9e     9451                 SUBR     5,1
+ca0     3F2FE7               J        IZLOOP
+ca3                .restore registov
+ca3     032144     EXIT      LDA      REGSTA
+ca6     6F2138               LDS      REGSTS
+ca9     772138               LDT      REGSTT
+cac     072138               LDX      REGSTX
+caf     4C0000               RSUB     0     
+cb2                NUM       RESW     
+cb5                BUFFER    RESW     
+de1                REGSTS    RESW     
+de4                REGSTT    RESW     
+de7                REGSTX    RESW     
+dea                REGSTA    RESW     
+ded     0F2FFA     ECHONL    STA      REGSTA
+df0     E30028     RDYLOOP    TD       OUTPUT
+df3     332FFA               JEQ      RDYLOOP
+df6     030024               LDA      NEWLN 
+df9     DF0028               WD       OUTPUT
+dfc     032FEB               LDA      REGSTA
+dff     4C0000               RSUB     0     
+e02                          END      0     

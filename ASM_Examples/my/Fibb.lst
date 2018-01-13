@@ -1,0 +1,54 @@
+0                  FIBB      START    0     
+0       4B2055               JSUB     STACKINIT
+3       032009               LDA      STEVILO
+6       4B200C               JSUB     FIBBR 
+9       0F2006               STA      REZUL 
+c       3F2FFD     HALT      J        HALT  
+f       000014     STEVILO    WORD     0, 0, 20
+12                 REZUL     RESW     
+15      292FEA     FIBBR     COMP     #-22  
+18      3B203A               JLT      IZHOD 
+1b      160C43               STL      @STACKPTR
+1e      4B2046               JSUB     STACKPUSH
+21      860C43               STT      @STACKPTR
+24      4B2040               JSUB     STACKPUSH
+27      7E0C43               STS      @STACKPTR
+2a      4B203A               JSUB     STACKPUSH
+2d      1D2FD1               SUB      #-47  
+30      AC05                 RMO      0,5
+32      1D2FCC               SUB      #-52  
+35      AC04                 RMO      0,4
+37      4B2FDB               JSUB     FIBBR 
+3a      AC04                 RMO      0,4
+3c      AC50                 RMO      5,0
+3e      4B2FD4               JSUB     FIBBR 
+41      9040                 ADDR     4,0
+43      4B2033               JSUB     STACKPOP
+46      6E0C43               LDS      @STACKPTR
+49      4B202D               JSUB     STACKPOP
+4c      760C43               LDT      @STACKPTR
+4f      4B2027               JSUB     STACKPOP
+52      0A0C43               LDL      @STACKPTR
+55      4C0000     IZHOD     RSUB     0     
+58      0F0C46     STACKINIT    STA      TEMP  
+5b      01202D               LDA      #STACK
+5e      0F0C43               STA      STACKPTR
+61      030C46               LDA      TEMP  
+64      4C0000               RSUB     0     
+67      0F0C46     STACKPUSH    STA      TEMP  
+6a      030C43               LDA      STACKPTR
+6d      192F93               ADD      #-109 
+70      0F0C43               STA      STACKPTR
+73      030C46               LDA      TEMP  
+76      4C0000               RSUB     0     
+79      0F0C46     STACKPOP    STA      TEMP  
+7c      030C43               LDA      STACKPTR
+7f      1D2F81               SUB      #-127 
+82      0F0C43               STA      STACKPTR
+85      030C46               LDA      TEMP  
+88      4C0000               RSUB     0     
+8b                 .SKLAD
+8b                 STACK     RESW     
+c43                STACKPTR    RESW     
+c46                TEMP      RESW     
+c49                          END      0     
