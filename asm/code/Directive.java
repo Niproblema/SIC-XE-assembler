@@ -48,6 +48,12 @@ public class Directive extends Node {
                 }
 
                 break;
+            case Directive.EQU:
+                int val = symbol == null ? value : code.locPtr; //Works with * only 
+                value = val;
+                code.defineSymbol(this.label, val);
+                break;
+
         }
         super.activate(code); //To change body of generated methods, choose Tools | Templates.
     }
@@ -84,7 +90,10 @@ public class Directive extends Node {
 
     @Override
     public void enter(Code code) {
-
+        if (mnemonic.opcode == Directive.ORG) {
+            code.PCptr = value;
+            code.locPtr = value;
+        }
     }
 
     @Override

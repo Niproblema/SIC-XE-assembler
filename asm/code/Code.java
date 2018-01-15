@@ -91,7 +91,7 @@ public class Code {
     public String emitText() {
         StringBuffer buf = new StringBuffer();
         buf.append(String.format("H%-6s%06X%06X\n", programName, startProgramPtr, (endProgramPtr - startProgramPtr)));
-
+        boolean goNew = false;
         int charCounter = 0;
         StringBuffer toWrite = new StringBuffer();
         begin();
@@ -99,7 +99,13 @@ public class Code {
         for (Node no : program) {
             no.enter(this);
             String newText = no.emitText();
-            if (charCounter + newText.length() > 60) {
+            if(newText.length()/2 != no.length()){
+                goNew = true;
+                no.leave(this);
+                continue;
+            }
+            if (charCounter + newText.length() > 60 || goNew) {
+                goNew = false;
                 buf.append(String.format("T%06X%02X%s\n", start, charCounter/2, toWrite.toString()));
                 toWrite = new StringBuffer();
                 charCounter = 0;

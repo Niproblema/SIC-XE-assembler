@@ -1,0 +1,106 @@
+0                  SKLADI    START    0     
+0       4B205C               JSUB     STACKINIT
+3       050000               LDX      #0    
+6       750001               LDT      #1    
+9       9451                 SUBR     5,1
+b       2D2023               TIX      #LENGTH
+e       332015               JEQ      HALT  
+11      53A018     LOOP      LDCH     INPUT 
+14      4B201B               JSUB     FKTORA
+17      4B0C50               JSUB     ECHONUM
+1a      03200C               LDA      NEWLN 
+1d      DF2011               WD       OUTPUT
+20      2D200E               TIX      #LENGTH
+23      3B2FEB               JLT      LOOP  
+26      3F2FFD     HALT      J        HALT  
+29      00000A     NEWLN     WORD     0, 0, 10
+2c      02         INPUT     BYTE     2
+2d      0A                   BYTE     10
+2e      05                   BYTE     5
+2f      07                   BYTE     7
+30      0E                   BYTE     14
+31                 END       EQU      42    
+31                 LENGTH    EQU      49    
+31      01         OUTPUT    BYTE     1
+32      160C4A     FKTORA    STL      @STACKPTR
+35      4B2036               JSUB     STACKPUSH
+38      290002               COMP     #2    
+3b      3B2018               JLT      BAILOUT
+3e      0E0C4A               STA      @STACKPTR
+41      4B202A               JSUB     STACKPUSH
+44      1D0001               SUB      #1    
+47      4B2FE8               JSUB     FKTORA
+4a      0F0C4D               STA      TEMP  
+4d      4B2030               JSUB     STACKPOP
+50      020C4A               LDA      @STACKPTR
+53      230C4D               MUL      TEMP  
+56      4B2027     BAILOUT    JSUB     STACKPOP
+59      0A0C4A               LDL      @STACKPTR
+5c      4C0000               RSUB     0     
+5f      0F0C4D     STACKINIT    STA      TEMP  
+62      01202D               LDA      #STACK
+65      0F0C4A               STA      STACKPTR
+68      030C4D               LDA      TEMP  
+6b      4C0000               RSUB     0     
+6e      0F0C4D     STACKPUSH    STA      TEMP  
+71      030C4A               LDA      STACKPTR
+74      190003               ADD      #3    
+77      0F0C4A               STA      STACKPTR
+7a      030C4D               LDA      TEMP  
+7d      4C0000               RSUB     0     
+80      0F0C4D     STACKPOP    STA      TEMP  
+83      030C4A               LDA      STACKPTR
+86      1D0003               SUB      #3    
+89      0F0C4A               STA      STACKPTR
+8c      030C4D               LDA      TEMP  
+8f      4C0000               RSUB     0     
+92                 .SKLAD
+92                 STACK     RESW     
+c4a                STACKPTR    RESW     
+c4d                .OSTALO
+c4d                TEMP      RESW     
+c50                .FUNKCIJA ZA IZPIS V DESETISKEMU STEVLU
+c50     0F2066     ECHONUM    STA      NUM   
+c53     0F219B               STA      REGSTA
+c56     7F218F               STS      REGSTS
+c59     87218F               STT      REGSTT
+c5c     13218F               STX      REGSTX
+c5f     6D0000               LDS      #0    
+c62     050000               LDX      #0    
+c65     772051     LOO       LDT      NUM   
+c68     03204E               LDA      NUM   
+c6b     A054                 COMPR    5,4
+c6d     33201C               JEQ      IZPIS 
+c70     25000A               DIV      #10   
+c73     21000A               MUL      #10   
+c76     9405                 SUBR     0,5
+c78     25000A               DIV      #10   
+c7b     0F203B               STA      NUM   
+c7e     010000               LDA      #0    
+c81     9050                 ADDR     5,0
+c83     57A036               STCH     BUFFER
+c86     2D0000               TIX      #0    
+c89     3F2FD9               J        LOO   
+c8c     750001     IZPIS     LDT      #1    
+c8f     9451                 SUBR     5,1
+c91     9451       IZLOOP    SUBR     5,1
+c93     2D0000               TIX      #0    
+c96     3B2011               JLT      EXIT  
+c99     53A020               LDCH     BUFFER
+c9c     190030               ADD      #48   
+c9f     DF0031               WD       OUTPUT
+ca2     1D0030               SUB      #48   
+ca5     9451                 SUBR     5,1
+ca7     3F2FE7               J        IZLOOP
+caa     032144     EXIT      LDA      REGSTA
+cad     6F2138               LDS      REGSTS
+cb0     772138               LDT      REGSTT
+cb3     072138               LDX      REGSTX
+cb6     4C0000               RSUB     0     
+cb9                NUM       RESW     
+cbc                BUFFER    RESW     
+de8                REGSTS    RESW     
+deb                REGSTT    RESW     
+dee                REGSTX    RESW     
+df1                REGSTA    RESW     
+df4                          END      0     

@@ -26,8 +26,9 @@ public class MnemonicDn extends Mnemonic {
         } // symbol
         else if (Character.isLetter(parser.lexer.peek())) {     
             return new Directive(this, parser.parseSymbol());
-        } // otherwise: error
-        else {
+        }else if(parser.lexer.peek() == '*' ){
+            return new Directive(this, '*');
+        }else {
             throw new SyntaxError(String.format("Invalid character '%c", parser.lexer.peek()), parser.lexer.row, parser.lexer.col);
         }
     }

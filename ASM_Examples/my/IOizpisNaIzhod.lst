@@ -1,16 +1,16 @@
-0       03201B               LDA      CRKAB 
+0       032019               LDA      CRKAB 
 3       4B2031               JSUB     ECHOCH
 6       4B2034               JSUB     ECHONL
 9       4B2031               JSUB     ECHONL
-c       012015               LDA      #BSEDIU
+c       012013               LDA      #BSEDIU
 f       4B2040               JSUB     ECHOSTR
-12      0123B4               LDA      #948  
+12      0103C9               LDA      #969  
 15      4B206D               JSUB     ECHONUM
 18      3F2FFD     HALT      J        HALT  
-1b      000001     OUTPUT    BYTE     0, 0, 1
-1e      000042     CRKAB     WORD     0, 0, 66
-21      00000A     NEWLN     WORD     0, 0, 10
-24      70617072696B61   BSEDIU    WORD     112, 97, 112, 114, 105, 107, 97
+1b      01         OUTPUT    BYTE     1
+1c      000042     CRKAB     WORD     0, 0, 66
+1f      00000A     NEWLN     WORD     0, 0, 10
+22      70617072696B610000   BSEDIU    WORD     112, 97, 112, 114, 105, 107, 97, 0, 0
 2b                 .PLAC ZA SHRANIT REGISTRE
 2b                 REGSTS    RESW     
 2e                 REGSTT    RESW     
@@ -21,7 +21,7 @@ f       4B2040               JSUB     ECHOSTR
 3d      0F2FF4     ECHONL    STA      REGSTA
 40      E32FD8     RDYLOOP    TD       OUTPUT
 43      332FFA               JEQ      RDYLOOP
-46      032FD8               LDA      NEWLN 
+46      032FD6               LDA      NEWLN 
 49      DF2FCF               WD       OUTPUT
 4c      032FE5               LDA      REGSTA
 4f      4C0000               RSUB     0     
@@ -32,10 +32,10 @@ f       4B2040               JSUB     ECHOSTR
 5e      332FFA               JEQ      LOOP  
 61      13201E               STX      OUT   
 64      52201B               LDCH     @OUT  
-67      292F96               COMP     #-106 
+67      290000               COMP     #0    
 6a      332009               JEQ      EXITT 
 6d      DF2FAB               WD       OUTPUT
-70      2D2F8D               TIX      #-115 
+70      2D0000               TIX      #0    
 73      3F2FE5               J        LOOP  
 76      032006     EXITT     LDA      ADDRS 
 79      072FB5               LDX      REGSTX
@@ -47,31 +47,31 @@ f       4B2040               JSUB     ECHOSTR
 8b      7F2F9D               STS      REGSTS
 8e      872F9D               STT      REGSTT
 91      132F9D               STX      REGSTX
-94      6D2F69               LDS      #-151 
-97      052F66               LDX      #-154 
+94      6D0000               LDS      #0    
+97      050000               LDX      #0    
 9a      772051     LOO       LDT      NUM   
 9d      03204E               LDA      NUM   
 a0      A054                 COMPR    5,4
 a2      33201C               JEQ      IZPIS 
-a5      252F62               DIV      #-158 
-a8      212F5F               MUL      #-161 
+a5      25000A               DIV      #10   
+a8      21000A               MUL      #10   
 ab      9405                 SUBR     0,5
-ad      252F5A               DIV      #-166 
+ad      25000A               DIV      #10   
 b0      0F203B               STA      NUM   
-b3      012F4A               LDA      #-182 
+b3      010000               LDA      #0    
 b6      9050                 ADDR     5,0
-b8      572036               STCH     BUFFER
-bb      2D2F42               TIX      #-190 
+b8      57A036               STCH     BUFFER
+bb      2D0000               TIX      #0    
 be      3F2FD9               J        LOO   
-c1      752F3D     IZPIS     LDT      #-195 
+c1      750001     IZPIS     LDT      #1    
 c4      9451                 SUBR     5,1
 c6      9451       IZLOOP    SUBR     5,1
-c8      2D2F35               TIX      #-203 
+c8      2D0000               TIX      #0    
 cb      3B2011               JLT      EXIT  
-ce      532020               LDCH     BUFFER
-d1      192F5C               ADD      #-164 
+ce      53A020               LDCH     BUFFER
+d1      190030               ADD      #48   
 d4      DF2F44               WD       OUTPUT
-d7      1D2F56               SUB      #-170 
+d7      1D0030               SUB      #48   
 da      9451                 SUBR     5,1
 dc      3F2FE7               J        IZLOOP
 df      032F52     EXIT      LDA      REGSTA

@@ -33,7 +33,7 @@ public class InstructionF4 extends Node {
             value = code.resolveSymbol(symbol);
         }
 
-        if (flags.b == 0 && flags.p == 0) {
+        if (flags.b == 0 && flags.p == 0 && symbol != null) {
             code.relocations.add(new Modification(code.locPtr + 1, (this.length() - 1) * 2 - 1));
         }
     }

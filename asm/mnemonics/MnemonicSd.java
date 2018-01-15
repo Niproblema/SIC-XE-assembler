@@ -25,6 +25,18 @@ public class MnemonicSd extends Mnemonic {
     @Override
     public Node parse(Parser parser) throws SyntaxError {
         byte[] data = parser.parseData();
+        if(opcode == Storage.BYTE && data.length == 3){
+            byte k = data[2];
+            data = new byte[1];
+            data[0] = k;
+        }else if(opcode == Storage.WORD && data.length % 3 != 0){
+            int f = data.length % 3;
+            byte[] nData = new byte[data.length + (3-f)];
+            for(int i = 0; i < data.length; i++){
+               nData[i] = data[i];                
+            }
+            data = nData;
+        }
         return new Storage(this,data);
     }
     

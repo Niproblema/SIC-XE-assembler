@@ -6,7 +6,7 @@
 c       3F2FFD     HALT      J        HALT  
 f       000014     STEVILO    WORD     0, 0, 20
 12                 REZUL     RESW     
-15      292FEA     FIBBR     COMP     #-22  
+15      290002     FIBBR     COMP     #2    
 18      3B203A               JLT      IZHOD 
 1b      160C43               STL      @STACKPTR
 1e      4B2046               JSUB     STACKPUSH
@@ -14,9 +14,9 @@ f       000014     STEVILO    WORD     0, 0, 20
 24      4B2040               JSUB     STACKPUSH
 27      7E0C43               STS      @STACKPTR
 2a      4B203A               JSUB     STACKPUSH
-2d      1D2FD1               SUB      #-47  
+2d      1D0001               SUB      #1    
 30      AC05                 RMO      0,5
-32      1D2FCC               SUB      #-52  
+32      1D0001               SUB      #1    
 35      AC04                 RMO      0,4
 37      4B2FDB               JSUB     FIBBR 
 3a      AC04                 RMO      0,4
@@ -37,13 +37,13 @@ f       000014     STEVILO    WORD     0, 0, 20
 64      4C0000               RSUB     0     
 67      0F0C46     STACKPUSH    STA      TEMP  
 6a      030C43               LDA      STACKPTR
-6d      192F93               ADD      #-109 
+6d      190003               ADD      #3    
 70      0F0C43               STA      STACKPTR
 73      030C46               LDA      TEMP  
 76      4C0000               RSUB     0     
 79      0F0C46     STACKPOP    STA      TEMP  
 7c      030C43               LDA      STACKPTR
-7f      1D2F81               SUB      #-127 
+7f      1D0003               SUB      #3    
 82      0F0C43               STA      STACKPTR
 85      030C46               LDA      TEMP  
 88      4C0000               RSUB     0     

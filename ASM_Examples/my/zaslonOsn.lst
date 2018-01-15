@@ -1,32 +1,32 @@
 0                  ZASOSN    START    0     
 0       032040               LDA      CRKAB 
-3       562043               STCH     @ZASLON
-6       032040               LDA      ZASLON
-9       1B2040               ADD      WIDTH 
-c       1D2FF2               SUB      #-14  
-f       0F2034               STA      TEMP  
+3       562041               STCH     @ZASLON
+6       03203E               LDA      ZASLON
+9       1B203E               ADD      WIDTH 
+c       1D0001               SUB      #1    
+f       0F2032               STA      TEMP  
 12      03202E               LDA      CRKAB 
-15      56202E               STCH     @TEMP 
-18      032034               LDA      HEIGHT
-1b      23202E               MUL      WIDTH 
+15      56202C               STCH     @TEMP 
+18      032030               LDA      HEIGHT
+1b      23202C               MUL      WIDTH 
 1e      AC05                 RMO      0,5
-20      1D2FDE               SUB      #-34  
-23      1B2023               ADD      ZASLON
-26      0F201D               STA      TEMP  
+20      1D0001               SUB      #1    
+23      1B2021               ADD      ZASLON
+26      0F201B               STA      TEMP  
 29      032017               LDA      CRKAB 
-2c      562017               STCH     @TEMP 
+2c      562015               STCH     @TEMP 
 2f      AC50                 RMO      5,0
-31      1F2018               SUB      WIDTH 
-34      1B2012               ADD      ZASLON
-37      0F200C               STA      TEMP  
+31      1F2016               SUB      WIDTH 
+34      1B2010               ADD      ZASLON
+37      0F200A               STA      TEMP  
 3a      032006               LDA      CRKAB 
-3d      562006               STCH     @TEMP 
+3d      562004               STCH     @TEMP 
 40      3F2FFD     HALT      J        HALT  
-43      000042     CRKAB     BYTE     0, 0, 66
-46                 TEMP      RESW     
-49                 . privzeti podatki o "zaslonu"
-49      00B800     ZASLON    WORD     0, -72, 0
-4c      000050     WIDTH     BYTE     0, 0, 80
-4f      000019     HEIGHT    BYTE     0, 0, 25
-52                           END      0     
-52                 .b) direktiva za zaslon npr base
+43      42         CRKAB     BYTE     66
+44                 TEMP      RESW     
+47                 . privzeti podatki o "zaslonu"
+47      00B800     ZASLON    WORD     0, -72, 0
+4a      50         WIDTH     BYTE     80
+4b      19         HEIGHT    BYTE     25
+4c                           END      0     
+4c                 .b) direktiva za zaslon npr base

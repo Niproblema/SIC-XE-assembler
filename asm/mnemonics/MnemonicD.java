@@ -20,6 +20,9 @@ public class MnemonicD extends Mnemonic {
 
     @Override
     public Node parse(Parser parser) throws SyntaxError {
+        if(opcode == Directive.EQU){
+            
+        }
         return new Directive(this, 0);
     }
 

@@ -3,13 +3,13 @@ a000               base      START    40960
 a000               . load B register and notify assembler
 a000    6910A809             +LDB     #b    
 a004                         BASE     43017 
-a004    014000               LDA      #b    
-a007    0127FF               LDA      #b    
+a004    01C000               LDA      #b    
+a007    01A7FF               LDA      #b    
 a00a                         RESB     
-a809    464F4F     b         BYTE     70, 79, 79
-a80c               . ********** other **********
-a80c    01480A               LDA      #c    
-a80f                         NOBASE   0     
-a80f    0110B013             +LDA     #c    
-a813                         RESB     
-b013    424152     c         BYTE     66, 65, 82
+a809    4F         b         BYTE     79
+a80a               . ********** other **********
+a80a    01C808               LDA      #c    
+a80d                         NOBASE   0     
+a80d    0110B011             +LDA     #c    
+a811                         RESB     
+b011    52         c         BYTE     82
